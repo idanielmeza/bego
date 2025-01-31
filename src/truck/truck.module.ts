@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Truck, TruckSchema } from './entities/truck.entity';
 import { CommonModule } from 'src/common/common.module';
 import { UserModule } from 'src/user/user.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { UserModule } from 'src/user/user.module';
       },
     ]),
     CommonModule,
-    UserModule
+    UserModule,
+    AuthModule
   ],
   controllers: [TruckController],
   providers: [TruckService],
