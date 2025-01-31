@@ -7,6 +7,8 @@ import { ConfigModule } from '@nestjs/config';
 import { CommonModule } from './common/common.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TruckModule } from './truck/truck.module';
+import { LocationModule } from './location/location.module';
+import { GmapsService } from './gmaps/gmaps.service';
 
 @Module({
   imports: [
@@ -19,8 +21,9 @@ import { TruckModule } from './truck/truck.module';
     UserModule,
     CommonModule,
     TruckModule,
+    LocationModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, GmapsService],
 })
 export class AppModule {}
