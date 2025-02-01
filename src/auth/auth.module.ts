@@ -31,6 +31,11 @@ import { CommonModule } from 'src/common/common.module';
       }
     })
   ],
-  exports: [JwtStrategy, JwtModule, AuthService]
+  exports: [
+    JwtStrategy, 
+    JwtModule, 
+    AuthService,
+    PassportModule
+  ]
 })
 export class AuthModule {}

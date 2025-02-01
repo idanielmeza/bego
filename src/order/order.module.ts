@@ -21,7 +21,7 @@ import { UserModule } from 'src/user/user.module';
     UserModule
   ],
   controllers: [OrderController],
-  providers: [OrderService, ],
+  providers: [OrderService],
  exports: [MongooseModule]
 })
 export class OrderModule {}

@@ -8,6 +8,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Order } from './entities/order.entity';
 import { Model } from 'mongoose';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
+import { OrderParser } from './utils/order.parser';
+import { IOrderDetail } from './interface/Order.interface';
 
 @Injectable()
 export class OrderService {
@@ -20,7 +22,7 @@ export class OrderService {
     private readonly orderModel: Model<Order>,
   ){}
 
-  async create(createOrderDto: CreateOrderDto) {
+  async create(createOrderDto: CreateOrderDto) : Promise<Order> {
 
     try {
       await Promise.all([
@@ -36,25 +38,33 @@ export class OrderService {
     return this.orderModel.create(createOrderDto);
   }
 
-  // TODO: add filters
-  findAll(paginationDto: PaginationDto) {
+  async findAll(paginationDto: PaginationDto) : Promise <IOrderDetail[]> {
     const skip = paginationDto.page * paginationDto.per_page - paginationDto.per_page;
     const take = paginationDto.per_page;
-    return this.orderModel.find()
+    const orders = await  this.orderModel.find()
+      .populate('user', 'email')
+      .populate('truck')
+      .populate('pickup')
+      .populate('dropoff')
       .skip(skip)
       .limit(take)
       .exec();
+
+    return orders.map( OrderParser.parseOrderToOrderVO )
   }
 
-  async findOne(id: string) {
-    const order = await this.orderModel.findById(id);
+  async findOne(id: string) : Promise<IOrderDetail> {
+    const order = await this.orderModel.findById(id).populate('user', 'email')
+    .populate('truck')
+    .populate('pickup')
+    .populate('dropoff');
 
     if(!order) throw new NotFoundException('Order not found');
 
-    return order;
+    return OrderParser.parseOrderToOrderVO(order);
   }
 
-  async update(id: string, updateOrderDto: UpdateOrderDto) {
+  async update(id: string, updateOrderDto: UpdateOrderDto) : Promise<Order | null> {
     
     const order = await this.findOne(id);
 
