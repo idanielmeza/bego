@@ -39,7 +39,7 @@ http://localhost:3000/api/v1
 ```
 
 ## Descripcion
-Esta aplicación utiliza Docker Compose para levantar los servicios necesarios y expone una API en el endpoint proporcionado.
+Esta aplicación utiliza Docker Compose para levantar los servicios necesarios y expone una API RESTful en el puerto 3000.
 
 Endpoints
 
@@ -48,6 +48,10 @@ Endpoints
 - Location
 - Truck
 - Order
+
+```
+Bearer <token>
+```
 
 Este proyecto esta diseñado con las librerias proporcionadas por nestjs para facilitar el desarrollo implementando mongoose para la conexion a la base de datos, passport para el manejo de tokens de sesion.
 
