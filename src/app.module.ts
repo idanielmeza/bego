@@ -9,6 +9,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TruckModule } from './truck/truck.module';
 import { LocationModule } from './location/location.module';
 import { GmapsService } from './gmaps/gmaps.service';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { GmapsService } from './gmaps/gmaps.service';
     CommonModule,
     TruckModule,
     LocationModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService, GmapsService],

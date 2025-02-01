@@ -17,6 +17,7 @@ import { AuthModule } from 'src/auth/auth.module';
       },
     ]),
     AuthModule
-  ]
+  ],
+  exports: [LocationService, MongooseModule]
 })
 export class LocationModule {}

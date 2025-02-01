@@ -21,6 +21,6 @@ import { AuthModule } from 'src/auth/auth.module';
   ],
   controllers: [TruckController],
   providers: [TruckService],
-  exports: [MongooseModule]
+  exports: [MongooseModule, TruckService]
 })
 export class TruckModule {}

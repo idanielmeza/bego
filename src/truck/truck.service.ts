@@ -38,8 +38,13 @@ export class TruckService {
       .limit(take);
   }
 
-  findOne(id: string) {
-    return this.truckModel.findById(id);
+  async findOne(id: string) {
+
+    const truck = await this.truckModel.findById(id);
+
+    if(!truck) throw new NotFoundException('truck not found');
+
+    return truck;
   }
 
   async update(id: string, updateTruckDto: UpdateTruckDto) {
